@@ -15,36 +15,36 @@ const historyList = document.querySelector('.history-list');
 const histBtn = document.querySelector('#hist-btn');
 
 //History array
-let history = [];
+let history = JSON.parse(localStorage.getItem('historyList')) || [];
 
 const updateHistory = () => {
     historyList.innerHTML = '';
-    history.map((val, index) => {
+    history.forEach((val, index) => {
         const liItem = document.createElement('li');
         liItem.classList.add('hist-li');
         liItem.textContent = `${val.expression} = ${val.answer}`;
 
-        liItem.addEventListener('click', ()=>{
+        liItem.addEventListener('click', () => {
             inputField.value = val.expression;
             answerField.innerText = val.answer;
-        })
+        });
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = "Delete";
         deleteButton.addEventListener('click', () => {
-            liItem.remove();
             history.splice(index, 1);
-            console.log(history);
+            localStorage.setItem('historyList', JSON.stringify(history));
+            updateHistory();
         });
 
         liItem.appendChild(deleteButton);
         historyList.appendChild(liItem);
-
     });
 }
+updateHistory();
 
 //variable object
-let variableObject = {
+let variableObject = JSON.parse(localStorage.getItem('varList')) || {
     pi: 3.1415,
     e: 2.7182,
 }
@@ -53,6 +53,7 @@ const createVariable = () => {
     varList.innerHTML = '';
     for (key in variableObject) {
         const liItem = document.createElement('li');
+        liItem.classList.add('var-li');
         liItem.textContent = `${key}: ${variableObject[key]}`;
 
         const deleteButton = document.createElement('button');
@@ -70,19 +71,30 @@ const createVariable = () => {
 }
 createVariable();
 
+// Utility function to check if string contains any digit
+const containsDigit = (string) => /\d/.test(string);
+
 //Add variables
 addVarBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
+    if (!varName.value || !varVal.value) {
+        varError.textContent = 'Error! All fields are required.';
+        setTimeout(() => { varError.textContent = ''; }, 2500);
+        return;
+    }
     if (variableObject[varName.value]) {
         varError.textContent = 'Error! Variable already exists.';
-        setTimeout(() => {
-            varError.textContent = '';
-        }, 2500);
+        setTimeout(() => { varError.textContent = ''; }, 2500);
+        return;
     }
-    else {
-        variableObject[varName.value] = varVal.value;
+    if (containsDigit(varName.value)) {
+        varError.textContent = 'Error! Variable name cannot have a number.';
+        setTimeout(() => { varError.textContent = ''; }, 2500);
+        return;
     }
+    variableObject[varName.value] = varVal.value;
+    localStorage.setItem('varList', JSON.stringify(variableObject))
     createVariable();
 })
 
@@ -94,13 +106,20 @@ const evaluateExpression = (e) => {
         const simplified = math.simplify(math.parse(expression));
         let answer = simplified.evaluate(variableObject).toFixed(4);
         answerField.innerText = answer;
+        answerField.classList.remove('error');
 
         //save in history
         history.push({ expression, answer });
+        localStorage.setItem('historyList', JSON.stringify(history));
         updateHistory();
     }
     catch (e) {
-        answerField.innerText = `Error. ${e}`;
+        answerField.innerText = `${e}`;
+        answerField.classList.add('error');
+        setTimeout(() => {
+            answerField.innerText = ``;
+            answerField.classList.remove('error');
+        }, 2500);
     }
 }
 

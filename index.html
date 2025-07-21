@@ -12,7 +12,7 @@
 <body>
     <div class="cal-container">
         <div class="history-container">
-            <h3>History</h3>
+            <h1>History</h1>
             <ul class="history-list"></ul>
         </div>
         <form class="form-input" action="">
@@ -24,47 +24,51 @@
             <div class="btns-container">
 
                 <div class="symbols-top">
-                    <button class="btn btn-symbol" value="(">(</button>
-                    <button class="btn btn-symbol" value=")">)</button>
-                    <button class="btn btn-symbol" value="sqrt(">sqrt</button>
-                    <button class="btn btn-symbol" value="sin(">sin</button>
-                    <button class="btn btn-symbol" value="cos(">cos</button>
-                    <button class="btn btn-symbol" value="tan(">tan</button>
-                    <button class="btn btn-symbol" value="pi">pi</button>
-                    <button class="btn btn-symbol" value="e">e</button>
+                    <button class="btn btn-symbol-top" value="(">(</button>
+                    <button class="btn btn-symbol-top" value=")">)</button>
+                    <button class="btn btn-symbol-top" value="sqrt(">sqrt</button>
+                    <button class="btn btn-symbol-top" value="sin(">sin</button>
+                    <button class="btn btn-symbol-top" value="cos(">cos</button>
+                    <button class="btn btn-symbol-top" value="tan(">tan</button>
+                    <button class="btn btn-symbol-top" value="pi">pi</button>
+                    <button class="btn btn-symbol-top" value="e">e</button>
                 </div>
-                <div class="numbers-left">
-                    <button class="btn btn-number" value="9">9</button>
-                    <button class="btn btn-number" value="8">8</button>
-                    <button class="btn btn-number" value="7">7</button>
-                    <button class="btn btn-number" value="6">6</button>
-                    <button class="btn btn-number" value="5">5</button>
-                    <button class="btn btn-number" value="4">4</button>
-                    <button class="btn btn-number" value="3">3</button>
-                    <button class="btn btn-number" value="2">2</button>
-                    <button class="btn btn-number" value="1">1</button>
-                    <button class="btn btn-number" value="0">0</button>
+                <div class="left-right-container">
+                    <div class="numbers-left">
+                        <button class="btn btn-number" value="9">9</button>
+                        <button class="btn btn-number" value="8">8</button>
+                        <button class="btn btn-number" value="7">7</button>
+                        <button class="btn btn-number" value="6">6</button>
+                        <button class="btn btn-number" value="5">5</button>
+                        <button class="btn btn-number" value="4">4</button>
+                        <button class="btn btn-number" value="3">3</button>
+                        <button class="btn btn-number" value="2">2</button>
+                        <button class="btn btn-number" value="1">1</button>
+                        <button class="btn btn-number" value="0">0</button>
+                    </div>
+                    <div class="symbols-right">
+                        <button class="btn btn-symbol" value="DEL">DEL</button>
+                        <button class="btn btn-symbol ac-btn" value="AC">AC</button>
+                        <button class="btn btn-symbol" value="+">+</button>
+                        <button class="btn btn-symbol" value="-">-</button>
+                        <button class="btn btn-symbol" value="^">^</button>
+                        <button class="btn btn-symbol" value="*">*</button>
+                        <button class="btn btn-symbol" value="/">/</button>
+                        <input class="btn-symbol" id="submit-btn" type="submit" value="=">
+                    </div>
                 </div>
-                <div class="symbols-right">
-                    <button class="btn btn-symbol" value="DEL">DEL</button>
-                    <button class="btn btn-symbol" value="AC">AC</button>
-                    <button class="btn btn btn-symbol" value="+">+</button>
-                    <button class="btn btn btn-symbol" value="-">-</button>
-                    <button class="btn btn btn-symbol" value="^">^</button>
-                    <button class="btn btn-symbol" value="*">*</button>
-                    <button class="btn btn-symbol" value="/">/</button>
-                    <input class="btn-symbol" id="submit-btn" type="submit" value="=">
-                </div>
+            </div>
+
         </form>
+
         <div class="add-variable-container">
-            <h3>Variables</h3>
+            <h1>Variables</h1>
             <input type="text" id="var-name" placeholder="Variable Name"> =
             <input type="text" placeholder="Value" id="var-val">
             <button id="add-variable-btn">Add Variables</button><br>
             <div id="var-error"></div>
             <ul class="variables-list"></ul>
         </div>
-    </div>
     </div>
 
     <script src="script.js"></script>
