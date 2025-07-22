@@ -61,6 +61,7 @@ const createVariable = () => {
         deleteButton.addEventListener('click', () => {
             liItem.remove();
             delete variableObject[key];
+            localStorage.setItem('varList', JSON.stringify(variableObject));
         });
 
         if (key != 'pi' && key != 'e') {
@@ -130,6 +131,7 @@ btns.forEach((btn) => {
         e.preventDefault();
         if (btn.value === 'AC') {
             inputField.value = '';
+            answerField.innerText = '';
         }
         else if (btn.value === 'DEL') {
             inputField.value = inputField.value.slice(0, -1);
